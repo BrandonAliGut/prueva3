@@ -1,0 +1,20 @@
+{% extends "User_Register/register_base.html" %}
+{% block content_logi %}
+<div class="card shadow-lg">
+    <div class="card-body align-middle"> 
+        <h3 class="card-title h5 text-center">
+            Login
+        </h3>
+        <form action="" method="POST" class="row g-4 d-flex justify-content-center">
+            {% csrf_token %}
+            {{ form.as_table }}
+        
+            <div class="form-control d-flex justify-content-center w-50 p-1">
+                <button type="submit" value="Update" class="btn btn-primary w-100 m-1">Login</button>
+              </div>
+        </form>
+        <a href="{% url 'register' %}" class="card-link  text-danger" style="text-decoration: none;"> No tengo una cuenta</a>
+
+    </div>
+</div>
+{% endblock %}

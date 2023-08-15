@@ -1,0 +1,165 @@
+{% extends 'base_class.html' %}
+{% load static %}
+{% block list_view %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-2 ">
+            <div class="rounded shadow-lg py-5  ">
+                <h5 class="border-bottom fw-bold text-center">Relaciones </h5>
+                <div class="nav-item dropdown my-1 bg-light border-4  rounded-5 rounded-bottom">
+                    <a class="nav-link dropdown-toggle text-black-50 fw-bold text-center" href="#" id="dropdown01"
+                        data-bs-toggle="dropdown" aria-expanded="false">Tablas</a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdown01">
+                        <li><a class="dropdown-item rounded-bottom bg-info shadow-sm btn-info btn " href="#">Agregar</a>
+                        </li>
+                        {% for r_T in r_tabla %}
+    
+                        <li><a class="dropdown-item" href="#">{{r_T.name}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+    
+                <div class="nav-item dropdown bg-light border-4  rounded-5 rounded-bottom">
+                    <a class="nav-link dropdown-toggle text-black-50 fw-bold text-center" href="#" id="dropdown01"
+                        data-bs-toggle="dropdown" aria-expanded="false">Galerias</a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdown01">
+                        <li><a class="dropdown-item rounded-bottom bg-info shadow-sm btn-info btn " href="#">Agregar</a>
+                        </li>
+                        {% for r_g in r_galeria %}
+    
+                        <li><a class="dropdown-item" href="#">{{r_g.nombre}}</a></li>
+    
+    
+    
+    
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="nav-item dropdown bg-light border-4  rounded-5 rounded-bottom">
+                    <a class="nav-link dropdown-toggle text-black-50 fw-bold text-center text-decoration-line-through "
+                        href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Videos</a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdown01">
+    
+                        <li><a class="dropdown-item rounded-bottom bg-info shadow-sm btn-info btn text-decoration-line-through "
+                                href="#">Agregar</a></li>
+    
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-10 shadow-sm border-1 rounded-4  bg-light">
+            <div class="col-sm-10 shadow-sm border-1 rounded-4  bg-light">
+                
+                {% if type == "info_update" %}
+                {% if Info %}
+                   <label for="id_nombre">Encavezado:</label>
+                    <input type="text" name="nombre" value="{{Info.nombre}}" class="form-control" placeholder="add name" maxlength="255" minlength="2"
+                        id="id_nombre">
+                    <label for="id_texto">Informacion:</label>
+                    <input type="text" name="texto" value="{{Info.texto}}" class="form-control" placeholder="..." maxlength="255" minlength="2" id="id_texto"> 
+                {% endif %}
+                <label for="country">Conecion Al Menu:</label>
+                <select name="PGRUPO" class="form-select" id="country">
+                    <option value="" selected="">---------</option>
+                    
+                    {% for t in form_ts %}
+                    {% for ts in t.menu %}
+                    
+                        {% if ts.opcion == "A" %}
+                        {% if Info.PGRUPO.id_MenuButton == ts.id_MenuButton  %}
+                            <option value="ts.id_MenuButton" selected class="bg-gradient">{{ts.titulo}} -&gt;Directo</option>
+                            {% endif %}
+                        {% endif %}
+                        
+                    {% endfor %}
+                    {% endfor %}
+
+                </select>
+                <label for="country">Agregar a una Lista:</label>
+                <select name="PGRUPO_Lista" class="form-select" id="country">
+
+                    <option value="" selected="">---------</option>
+                    {% for t in form_ts %}
+                    {% for ts in t.lista %}
+                    <!--menu-->
+                        
+                        
+                        {% if Info.PGRUPO_Lista.PGRUPO.opcion == "A"  %}
+                        {% if Info.PGRUPO_Lista.id == ts.id  %}
+                            <option value="ts.id_MenuButton" selected class="bg-light">{{ts.nombre}}</option> 
+                            {% else %} 
+                            <option value="ts.id_MenuButton"  class="bg-light">{{ts.nombre}}</option> 
+                            {% endif %}
+                            {% endif %}
+                    
+                        
+                       
+                        
+                    {% endfor %}
+                    {% endfor %}
+                </select>
+                <label for="country">Grupo Perteneciente:</label>
+                <select name="padre" class="form-select" id="country">
+                   {% if Info.padre == "MenuButton" %}
+                    <option value="MenuButton" selected>MenuButton</option>
+                    {% else %}
+                    <option value="Lista" selected>Lista</option>
+                   {% endif %}
+                    
+                    
+                </select>
+                <label for="inlineCheckbox1">Activo:</label>
+                <input type="checkbox" name="activo" class="form-check-input" id="inlineCheckbox1">
+                {% elif  type == "table"%}
+                    <p>tabla</p>
+                {% elif  type == "add"%}
+                {% endif %}
+
+            </div>
+
+            </div>
+    </div>
+    
+</div>
+{% endblock %}
+
+<!--
+                <label for="id_nombre">Nombre:</label>
+                <input type="text" name="nombre" class="form-control" placeholder="add name" maxlength="255" minlength="2"
+                    id="id_nombre">
+                <label for="id_texto">Texto:</label>
+                <input type="text" name="texto" class="form-control" placeholder="..." maxlength="255" minlength="2" id="id_texto">
+            
+                <label for="country">Pgrupo:</label>
+                <select name="PGRUPO" class="form-select" id="country">
+                    <option value="" selected="">---------</option>
+                    
+                    {% for t in form_ts %}
+                    {% for ts in t.menu %}
+                        {% if ts.opcion == "A" %}
+                            <option value="ts.id_MenuButton" class="bg-light">{{ts.titulo}} -&gt;Menu</option> 
+                        {% elif ts.opcion == "B"%}
+                            <option value="ts.id_MenuButton" class="bg-gradient">{{ts.titulo}} -&gt;Directo</option> 
+                        {% endif %}
+                    {% endfor %}
+                    {% endfor %}
+
+                </select>
+                <label for="country">Pgrupo lista:</label>
+                <select name="PGRUPO_Lista" class="form-select" id="country">
+                    <option value="" selected="">---------</option>
+                </select>
+                <label for="country">Padre:</label>
+                <ul class="errorlist">
+                    <li>Este campo es obligatorio.</li>
+                </ul>
+                <select name="padre" class="form-select" id="country">
+                    <option value="MenuButton">MenuButton</option>
+                    <option value="Lista">Lista</option>
+                </select>
+                <label for="inlineCheckbox1">Activo:</label>
+                <input type="checkbox" name="activo" class="form-check-input" id="inlineCheckbox1">
+            </div>
+            -->
+            
+

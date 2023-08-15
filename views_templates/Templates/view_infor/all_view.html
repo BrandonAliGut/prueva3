@@ -1,0 +1,91 @@
+{% extends 'page_all/list_animals_Informacion.html' %}
+{% load static %}
+{% block tab_nav %}
+    
+    <div class="row ">
+      <div class="col-lg-12">
+        
+        {% for menu in menu %}
+        <div class="list-group">
+          {% for group in groups %}
+
+          {% if menu.id_MenuButton == group.PGRUPO.id_MenuButton %}
+          <li class="list-group-item {% cycle  'bg-secondary' 'bg-light' %}">
+          
+            <div class="row w-100">
+              <a class="col-10 text-decoration-none" href="{% url 'addinformacion' 'info_update' group.id %}" class="  w-100 d-flex ">
+                <div class=" {% cycle 'text-white' 'text-black-50'  %} ">{{group.nombre}}</div>
+              </a>
+            {% include 'view_infor/add_info/colsinfo.html' %}
+            </div>
+
+        </li>
+          {% endif %}
+          {% endfor %}
+        {% endfor %}
+
+
+        {% for lista in lista %}
+        <p class="h3 text-black-50 fa-bold border-bottom ">{{lista.nombre}}</p>  
+        <div class="list-group">
+          {% for group in groups %}
+            
+          {% if lista.id == group.PGRUPO_Lista.id %}
+          <li class="list-group-item {% cycle  'bg-secondary' 'bg-light' %}">
+          
+            <div class="row w-100">
+              <a class="col-10 text-decoration-none" href="{% url 'addinformacion' 'info_update' group.id %}" class="  w-100 d-flex ">
+                <div class=" {% cycle 'text-white' 'text-black-50'  %} ">{{group.nombre}}</div>
+              </a>
+            {% include 'view_infor/add_info/colsinfo.html' %}
+            </div>
+
+        </li>
+          {% endif %}
+          {% endfor %}
+        {% endfor %}
+          
+        
+            
+          
+
+          
+        </div>
+      </div>
+      <div class="cols-lg-12">
+        <div class="pagination w-100">
+          <nav aria-label="...">
+            <ul class="pagination ">
+              {% if pages.has_previous %}
+              <li class="page-item">
+                <a class="page-link" href="?page=1">first</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="?page={{ pages.previous_page_number }}">previous</a>
+              </li>
+
+              {% endif %}
+              <li class="page-item">
+                <p class="page-link">
+                  Page {{ pages.number }} of {{ pages.paginator.num_pages }}.
+                </p>
+              </li>
+
+              </span>
+
+              {% if pages.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ pages.next_page_number }}">next</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="?page={{ pages.paginator.num_pages }}">last</a>
+              </li>
+              {% endif %}
+
+            </ul>
+          </nav>
+
+        </div>
+      </div>
+    </div>
+{% endblock %}

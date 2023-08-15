@@ -1,0 +1,20 @@
+{% load static %}
+<div class="col-1 ">
+    <div class="d-flex" style="width: 20px;">
+      <a href="{% url 'table_all_add' group.id %}" style="width: 40px;"
+        class=" text-decoration-none {% cycle 'text-white' 'text-black-50'  %}">
+        <abbr title="add table" class="text-decoration-none">
+          <img src="{% static 'icon/table_add_filled_icon_199676.png' %}" class="card-img-top" style="width: 20px;">
+        </abbr></a>
+    </div>
+  </div>
+  <div class="col-1">
+    <div style="width: 40px;" class="col-2 text-center {% cycle 'text-white' 'text-black-50'  %}">
+
+      <abbr title="add new galeria h4" class="text-decoration-none">
+        <img src="{% static 'icon/gui_gallery_icon_157643.png' %}" class="card-img-top" style="width: 20px;">
+      </abbr>
+    </div>
+  </div>
+  </div>
+  

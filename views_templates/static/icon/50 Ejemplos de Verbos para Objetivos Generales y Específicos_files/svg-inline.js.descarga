@@ -1,0 +1,27 @@
+function loadSvg(el) {
+
+	if (typeof SVGRect === undefined && ! el) return;
+
+	var ajax = new XMLHttpRequest();
+
+	ajax.open("GET", el.src , true);
+	ajax.send();
+
+	/*Append the SVG to the el*/
+
+	ajax.onload = function(e) {
+		let svgContainer = document.createElement('span');
+		svgContainer.className = el.className;
+		svgContainer.className += ' svg-inlined';
+		svgContainer.innerHTML = ajax.responseText;
+		el.parentNode.insertBefore(svgContainer, el);
+		el.remove();
+
+	}
+
+}
+
+
+for (el of document.querySelectorAll('img.custom-logo, img.to-inline')) {
+	loadSvg(el);
+}

@@ -1,0 +1,312 @@
+/*--------------------------------------------------------------
+## registro e insercion de ads
+--------------------------------------------------------------*/
+
+window.googletag = window.googletag || { cmd: [] };
+
+var yieldlove_site_id = "ejemplos.co";
+var sidebar = document.getElementById('secondary');
+var entryContent = document.querySelector('.entry-content');
+var yieldLove = document.createElement('script');
+var securePubAds = document.createElement('script');
+var footer = document.querySelector('.entry-footer');
+var siteFooter = document.querySelector('.site-footer');
+
+// slots
+
+const gtpSlotMobile1 = '/53015287,22662320904/ejemplos.co_m_300x250_1';
+const gtpSlotMobile2 = '/53015287,22662320904/ejemplos.co_m_300x250_2';
+const gtpSlotMobile3 = '/53015287,22662320904/ejemplos.co_m_300x250_3';
+const gtpSlotMobile4 = '/53015287,22662320904/ejemplos.co_m_300x250_4';
+
+const gtpSlotDesktop1 = '/53015287,22662320904/ejemplos.co_d_300x600_1';
+const gtpSlotDesktop2 = '/53015287,22662320904/ejemplos.co_d_300x250_1';
+
+
+// funciona para todos los devices. comentar si se usa el codigo de abajo
+// window.addEventListener('scroll',checkScroll);
+
+
+// carga con scroll en mobile y directo para tablet y desktop
+
+if (window.innerWidth < 720) {
+	window.addEventListener('scroll', checkScroll);
+} else {
+	loadGTP();
+}
+
+
+/*--------------------------------------------------------------
+## !IMPORTANTE:
+NO QUITAR LAS CLASES 'ad-container rs_skip rs_preserve'
+--------------------------------------------------------------*/
+
+
+
+function checkScroll() {
+	if (window.pageYOffset > 10) {
+		loadGTP();
+		window.removeEventListener('scroll', checkScroll);
+	}
+}
+
+function loadGTP() {
+
+	yieldLove.src = "//cdn-a.yieldlove.com/v2/yieldlove.js?ejemplos.co";
+	securePubAds.src = "https://securepubads.g.doubleclick.net/tag/js/gpt.js";
+
+	document.head.appendChild(yieldLove);
+	document.head.appendChild(securePubAds);
+
+	/* una vez que gtp se cargue, ejecutar adsInit */
+	securePubAds.addEventListener('load', function () {
+		adsInit();
+	})
+
+
+}
+
+function defineAd(id) {
+
+	let el;
+
+	if (document.getElementById(id)) {
+		el = document.getElementById(id);
+		el.dataset['isAddedManually'] = true;
+	} else {
+		el = document.createElement('DIV');
+		el.id = id;
+		el.dataset['isAddedManually'] = false;
+	}
+	el.className = 'ad-container rs_skip rs_preserve';
+
+	return el;
+
+}
+
+
+function adsInit() {
+
+
+	// console.log('ad init!');
+
+
+	if (window.innerWidth < 1024) {
+
+
+		/* si es mobile */
+
+		gtpMobile()
+		teadsMobile();
+
+
+	} else {
+
+		avantisDestop();
+		gtpDesktop();
+
+	}
+
+}
+
+
+
+function teadsMobile() {
+	/*--------------------------------------------------------------
+	##  script para teads 
+	--------------------------------------------------------------*/
+
+	let teadsAd = defineAd('ad-teads');
+	// document.createElement('div');
+	// teadsAd.id = 'ad-teads';
+	// teadsAd.className = 'ad-container rs_skip rs_preserve';
+
+	let teadsScript = document.createElement('script');
+	teadsScript.src = '//a.teads.tv/page/121064/tag';
+	/*teadsScript.async = true;*/
+	teadsScript.className = 'teads';
+
+
+	addAfterEl('.entry-content p', 1, teadsAd);
+	addAfterEl('.entry-content p', 1, teadsScript);
+}
+
+function gtpMobile() {
+
+	let gtpAd1 = defineAd('gtp-ad-1');
+	let gtpAd2 = defineAd('gtp-ad-2');
+	let gtpAd3 = defineAd('gtp-ad-3');
+	let gtpAd4 = defineAd('gtp-ad-4');
+	let gtpAdFooter = defineAd('gtp-ad-footer');
+
+	/*--------------------------------------------------------------
+	## script para gtp 
+	--------------------------------------------------------------*/
+
+	googletag.cmd.push(function () {
+
+		/* ad 1*/
+
+		googletag.defineSlot(gtpSlotMobile1, [300, 250], gtpAd1.id)
+			.addService(googletag.pubads());
+
+		/* ad 2*/
+
+		googletag.defineSlot(gtpSlotMobile2, [300, 250], gtpAd2.id)
+			.addService(googletag.pubads());
+
+		/* ad 3*/
+		if (gtpAd3.dataset.isAddedManually == 'true') {
+			googletag.defineSlot(gtpSlotMobile3, [300, 250], gtpAd3.id)
+				.addService(googletag.pubads());
+		}
+
+		/* ad 4*/
+		if (gtpAd4.dataset.isAddedManually == 'true') {
+			googletag.defineSlot(gtpSlotMobile4, [300, 250], gtpAd4.id)
+				.addService(googletag.pubads());
+		}
+
+		/* ad footer*/
+
+		googletag.defineSlot('/53015287,22662320904/ejemplos.co_m_320x50_1', [320, 50], gtpAdFooter.id)
+			.addService(googletag.pubads());
+
+
+		googletag.pubads().enableSingleRequest();
+		googletag.enableServices();
+
+	});
+
+	/* se crean los contenedores y se gregan al DOM */
+
+	let adsFooterFixed = document.createElement('DIV');
+	adsFooterFixed.className = 'ads-float-mobile';
+
+	adsFooterFixed.appendChild(gtpAdFooter);
+	siteFooter.appendChild(adsFooterFixed);
+
+	// console.log(!Boolean(gtpAd1.dataset.isAddedManually));
+
+	if (gtpAd1.dataset.isAddedManually == 'false') {
+		addAfterEl('.entry-content p', 4, gtpAd1);
+		// log('gtpAd1 added');
+	}
+	if (gtpAd2.dataset.isAddedManually == 'false') {
+		addAfterEl('.entry-content p', 7, gtpAd2);
+	}
+}
+
+function gtpDesktop() {
+	/* si es desktop */
+
+	let gtpAd1 = defineAd('gtp-ad-1');
+	let gtpAd2 = defineAd('gtp-ad-2');
+	// let gtpAd3 = defineAd('gtp-ad-3');
+	// let gtpAd4 = defineAd('gtp-ad-4');
+
+
+	/*--------------------------------------------------------------
+	## script para gtp 
+	--------------------------------------------------------------*/
+
+
+	googletag.cmd.push(function () {
+
+
+		/* ad 1 */
+
+		googletag.defineSlot(gtpSlotDesktop1, [[300, 600], [160, 600], [300, 250]], gtpAd1.id)
+			.addService(googletag.pubads());
+
+		/* ad 2 */
+
+		googletag.defineSlot(gtpSlotDesktop2, [300, 250], gtpAd2.id)
+			.addService(googletag.pubads());
+
+
+		/* se activa el servicio */
+
+		googletag.pubads().enableSingleRequest();
+		googletag.enableServices();
+
+	});
+
+
+	let adsSidebarContainer = document.createElement('DIV');
+	adsSidebarContainer.className = 'ads-container';
+
+	// let gtpAd1 = document.createElement('DIV');
+	// gtpAd1.className = 'ad-container rs_skip rs_preserve';
+	// gtpAd1.id = 'gtp-ad-1';
+
+	// let gtpAd2 = document.createElement('DIV');
+	// gtpAd2.className = 'ad-container rs_skip rs_preserve';
+	// gtpAd2.id = 'gtp-ad-2';
+
+	adsSidebarContainer.appendChild(gtpAd2);
+	adsSidebarContainer.appendChild(gtpAd1);
+	sidebar.appendChild(adsSidebarContainer);
+
+
+	/* sticky behavior */
+
+	let scrollMagic = document.createElement('script');
+	scrollMagic.src = 'https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js';
+	document.head.appendChild(scrollMagic);
+
+	scrollMagic.addEventListener('load', function () {
+
+		console.log('scrollmagic loaded');
+
+		var scrolLife = entryContent.clientHeight - gtpAd1.getBoundingClientRect().top - gtpAd1.clientHeight - window.pageYOffset;
+		var controller = new ScrollMagic.Controller();
+		var sceneAd1 = new ScrollMagic.Scene({
+			triggerElement: gtpAd1,
+			duration: scrolLife,
+			offset: getHeaderHeight() * -1.3,
+			triggerHook: 0,
+		})
+			.setPin(gtpAd1)
+			.addTo(controller);
+	})
+}
+
+function avantisDestop() {
+
+	/*--------------------------------------------------------------
+	## scripts para avantis video 
+	--------------------------------------------------------------*/
+
+	// revisar la aparicion del container de avantis para agregar clases y omitir la lectura de Readspeaker
+
+	let config = { attributes: true, childList: true, characterData: true };
+	let avantisObserver = new MutationObserver(function (mutations) {
+		mutations.forEach(function (mutation) {
+			// console.log(mutation.addedNodes[0]);
+			if ('vid-container0' == mutation.addedNodes[0].id) {
+				document.getElementById('vid-container0').className = 'ad-container rs_skip rs_preserve';
+				console.log('avantis editado');
+				avantisObserver.disconnect();
+			}
+		});
+	});
+
+	avantisObserver.observe(entryContent, config);
+
+	// crea el script de avantis
+
+	let avantisScript = document.createElement('script');
+
+	avantisScript.addEventListener('DOMContentLoaded', () => {
+		console.log('avantis loaded');
+	})
+
+	avantisScript.src = 'https://cdn.avantisvideo.com/avm/js/video-loader.js?id=934fe016-4b29-402c-bbe9-ebcc60341c91&tagId=1';
+	avantisScript.id = 'avantisJS';
+	avantisScript.async = true;
+
+
+	addAfterEl('.entry-content > p', 2, avantisScript);
+	// sidebar.appendChild(avantisScript);
+}

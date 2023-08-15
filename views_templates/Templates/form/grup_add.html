@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="card w-69 m-3 p-5" style=" border-color:darkblue;">
+  <div class="card-body">
+    <h4 class="card-title">Add grupo</h4>
+    {% load static %}
+
+<form action="" method="POST" class="row g-2" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-md-5 text-center">
+        {{  form.foto }}
+    </div>
+    <div class="col-md-7 p-2">
+      <div class="row">
+        <div class="col-md-12">
+          <label for="" class="form-label">nombre del Grupo</label>
+          {{ form.grupo }}
+  
+      </div>
+      <div class="col-md-6 my-3">
+          <label for="" class="form-label">Visible</label>
+          {{ form.activo }}
+      </div>
+      </div>
+    </div>
+    
+    </div>
+    
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Add</button>
+      </div>
+</form>
+
+
+  </div>
+</div>
+{% endblock %}
+    

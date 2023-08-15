@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap-5.0.2/dist/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js'%}">
+    <link rel="stylesheet" href="{% static 'css/body.css'%}">
+</head>
+<body >
+
+    <div class="container-fluid w-100 d-flex justify-content-center bg-light " style="height: 100vh; ">
+        <div class="row d-flex d-fixed justify-content-center  row-cols-sm-2 ">
+             <div class="col-8 g-2 align-self-center">
+                {% block content_logi %}
+
+                {% endblock %}
+        
+             </div>
+        </div>
+    </div>
+    <div class="container">
+        {% if messages %}
+            <div class="alert alert-dark">
+            {% for message in messages %}
+                <p>
+                    {{ message }}
+              </p>
+            {% endfor %}
+                </div>
+              
+            {% endif %}
+    </div>
+  
+
+    
+    
+</body>
+</html>

@@ -1,0 +1,48 @@
+
+{% load static %}
+
+
+<form method="POST" class="row g-3" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="col-md-3 p-1">
+        <div class="row">
+            <div class="col-12">
+                <img src="{{ grupo_pk.foto.url }}" alt="" class="card-img w-70"></a>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-9 p-1">
+        <div class="row p-2">
+            <div class="col-md-12 p-1">
+
+                {{ form.foto }}
+            </div>
+
+            <div class="col-md-6">
+                <label for="" class="form-label">Especie</label>
+                {{ form.AnimalList }}
+
+            </div>
+            <div class="col-md-6">
+                <label for="" class="form-label">Grupo</label>
+                {{ form.PGRUPO }}
+
+            </div>
+            <div class="col-md-6">
+                <label for="" class="form-label">Categoria</label>
+                {{ form.Id_Categoria }}
+
+            </div>
+            <div class="col-md-6">
+                <label for="" class="form-label">Visible</label>
+                {{ form.activo }}
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Update</button>
+    </div>
+</form>
+

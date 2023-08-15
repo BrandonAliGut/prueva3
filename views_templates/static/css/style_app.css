@@ -1,0 +1,27 @@
+.ulrs li{
+    position: relative;
+    height: 60px;
+}
+.span_nav_view{
+   position: absolute;
+   height: 40px;
+   width: 150px;
+   background: #fff;
+   right: 70px;
+   top:0;
+   transform: translateY(-50%);
+   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.171);
+   border-radius: 6px;
+   line-height: 35px;
+   transition: 0s;
+   opacity: 0;
+   pointer-events: none;
+
+}
+
+.ulrs li:hover .span_nav_view{
+    transition: all 0.5s ease;
+    top: 50%;
+    opacity: 1;
+}
+

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="d-flext w-100 aling-self-center aling-content-center justify-content-center" >
+    <div class="card position-absolute top-50 start-50 translate-middle">
+        <div class="card-body">
+            <h2 class="card-body text-center"> Bienvenido {% if user.is_authenticated %}
+                {{ user }}
+                {% else %}
+                A ZooApp
+                {% endif %}</h2>
+            <div class="card-subtitle mb-2 text-muted">Cuida, Protege y consiente a los animales</div>
+            <p class="cart-text">
+                Esta pagina esta dedicada hacia los animales domesticos y de produccion 
+            </p>
+        </div>
+    </div></div>
+    
+{% endblock  %}

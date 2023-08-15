@@ -1,0 +1,74 @@
+{% extends 'base_class.html' %}
+{% load static %}
+{% block list_view %}
+<div class="container justify-content-sm-center">
+  <div class=" d-flex p-1 justify-content-end align-content-end">
+    <a href="{% url 'add_grup' %}" class="btn btn-success">Add Grupos</a>
+  </div>
+                        
+    <div class="row row-cols-2">
+        {% for grupo in pages %}  
+            <div class="col-sm py-2 g-3 w-100">
+            <div class="container-lg px-1 text-center"style="width:290px;">
+                <div class="row gx-1 row-cols-1 " style="">
+                    <div class="card text-center">
+                        <a href="{% url 'select_grup' grupo.idGrup %}" class="nav-link ">
+                        <div class="row g-0">
+                          <div class="col-md-8 w-100">
+                            <img src="{{ grupo.foto.url }}" class="card-img w-100 h-100" alt="...">
+                          </div>
+                          <div class="col">
+                            <div class="card-body text-center">
+                              <h5 class="card-title">{{ grupo.grupo }}</h5>
+                            </div>
+                          </div>
+                          
+                        </div></a>
+                      </div>
+                </div>
+              </div>
+    
+        </div>
+    
+        {% endfor %}
+        
+        
+    </div>
+    
+    <div class="pagination">
+        <nav aria-label="...">
+      <ul class="pagination">
+        {% if pages.has_previous %}
+                <li class="page-item">
+                  <a class="page-link" href="?page=1">first</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ pages.previous_page_number }}">previous</a>
+                </li>
+                
+            {% endif %}
+            <li class="page-item">
+              <p class="page-link">
+                  Page {{ pages.number }} of {{ pages.paginator.num_pages }}.
+               </p>
+              </li>
+              
+          </span>
+    
+        {% if pages.has_next %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ pages.next_page_number }}">next</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ pages.paginator.num_pages }}">last</a>
+                </li>
+          {% endif %}
+        
+      </ul>
+    </nav>
+    
+    </div>
+  </div>
+  
+
+{% endblock %}

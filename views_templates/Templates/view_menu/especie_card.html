@@ -1,0 +1,23 @@
+{% load static %}
+
+
+<div class="row boder rounded-3 bg-light featurette">
+  <div class="col-xl-8 order-md-1">
+    <img src="{{ grupo_pk.foto.url }}" class="card-img w-100 h-100" alt="...">
+  </div>
+  <div class="col-xl-4  order-md-2 text-center my-5">
+    
+      <h2 class="featurette-heading">
+        <span class="text-muted">
+          {{ grupo_pk.titulo }}
+        </span>
+        </h2>
+      <p class="lead"><small>visible {{ grupo_pk.activo }}</small></p>
+    
+    <div class="row row-cols-xl-12  d-flexd justify-content-center  " role="group" aria-label="Basic outlined">
+      <button type="button" class="col-lg-5 btn btn-outline-primary m-1" data-bs-toggle="modal" data-bs-target="#Grupos">Modify</button>
+      <a href="{% url 'animal_delete' grupo_pk.id_MenuButton %}" class="col-lg-5 btn btn-outline-danger m-1">Delete</a>
+    </div>
+  </div>
+</div>
+

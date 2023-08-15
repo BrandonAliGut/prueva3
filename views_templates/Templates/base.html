@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'bootstrap-5.0.2/dist/css/bootstrap.min.css'%}">
+  <link rel="stylesheet" href="{% static 'bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js'%}">
+  <link rel="stylesheet" href="{% static 'css/body.css'%}">
+  <link rel="stylesheet" href="{% static 'css/style_app.css'%}">
+  <link rel="stylesheet" href="{% static 'css/style_app.css'%}">
+  
+  <title>ZooApp</title>
+</head>
+
+<body class="bg-light">
+  <div class="container-ms">
+    <nav class="navbar navbar-dark bg-dark d-flex">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">ZooApp </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
+          aria-controls="offcanvasDarkNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
+          aria-labelledby="offcanvasDarkNavbarLabel">
+          <div class="offcanvas-header">
+            
+            <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+              aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+              <li class="nav-item">
+                <a href="{%url 'home'%}" class="nav-link active" aria-current="page" style="color: black;"> Home</a>
+              </li>
+              {% if user.is_superuser %}
+              <li class="nav-item">
+                <a href="{% url 'home_grupo' %}" class="nav-link active" aria-current="page"
+                  style="color: black;">Regitro</a>
+              </li>
+              {% endif %}
+
+              {% if not user.is_authenticated %}
+              <!--usuarios no auntentificados-->
+              {% endif %}
+              {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a href="{% url 'logout' %}" class="nav-link active" aria-current="page" style="color: black;">log
+                  out</a>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a href="{% url 'register' %}" class="nav-link active" aria-current="page" style="color: black;">
+                  register
+                </a>
+                <a href="{% url 'login' %}" class="nav-link active" aria-current="page" style="color: black;">
+                  login
+                </a>
+              </li>
+              {% endif %}
+
+
+
+            </ul>
+            <form class="d-flex mt-3" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-ms  w-100 ">
+      <div class="row-xxl w-100 ">
+        <div class="col w-100">
+          {% block content %}
+
+          {% endblock %}
+          
+        </div>
+        <div class="col-10 aling-content-center w-100 px-2 py-1">
+          {% if messages %}
+          <div class="alert d-flex alert-dark justify-content-center align-content-center">
+            {% for message in messages %}
+            <p class="justify-content-center ">
+              {{ message }}
+            </p>
+            {% endfor %}
+          </div>
+
+          {% endif %}
+
+        </div>
+      </div>
+
+    </div>
+
+    <script src="{% static 'bootstrap-5.0.2/dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'bootstrap-5.0.2/dist/js/popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js' %}" ></script>
+  </div>
+</body>
+
+</html>

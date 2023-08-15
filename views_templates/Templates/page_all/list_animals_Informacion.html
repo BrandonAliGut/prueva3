@@ -1,0 +1,48 @@
+{% extends 'base_class.html' %}
+{% load static %}
+{% block list_view %}
+<div class="container justify-content-sm-center">
+
+  <nav>
+    <div class="row row-cols-1">
+
+      <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+        <a href="{% url 'select_informacion' %}" class="nav-link  {% if request.path == '/admin_Informacion' %}
+        active
+        {% endif %} "     role="tab"
+           aria-selected="true">
+          All</a>
+          <a href="{% url 'table_all_add' 0 %}" class="nav-link {% if pk %}
+          active
+          
+          {% endif %} "   role="tab" 
+          aria-selected="true">
+          
+          add table
+        </a>
+         
+          <button class="nav-link {% if request.path == '' %}
+          active
+          {% endif %} "  data-bs-toggle="tab"   role="tab"
+          aria-selected="true">
+          galerias</button>
+      </div>
+
+
+    </div>
+    <div class="tab-content" id="nav-tabContent">
+
+      {% block tab_nav %}
+
+      {% endblock %}
+
+      
+
+      
+    </div>
+  </nav>
+
+</div>
+
+
+{% endblock %}

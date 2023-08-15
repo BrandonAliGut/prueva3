@@ -1,0 +1,4 @@
+.sb_breadcrumb{padding:0}.sb_breadcrumb>li{float:left;padding:0
+10px 0 0;list-style:none;color:#000}.sb_breadcrumb>li:before{content:"/";margin-right:10px}.sb_breadcrumb>li:first-child:before{display:none}.sb_breadcrumb
+a{color:inherit}.sb_breadcrumb a:hover{color:#333}.sb_breadcrumb a:focus{outline:2px
+solid #000;text-decoration:none}

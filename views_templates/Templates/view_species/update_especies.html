@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container ">
+    <div class="row">
+            <div class="col-10">
+                <h2 class="text-left h1">{{ user }}</h2>
+            </div>
+            <div class="col-2 p-1">
+              <a href="{% url 'add_especies' %}" class="btn btn-success">Add Especies</a>
+            </div>
+        </div>
+    <div class="container p-1">
+    <div class="row justify-content-sm-center">
+        <div class="col-md-8 col-xl-8">
+          
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Control Especies</h3>
+                    </div>
+                </div>
+                <div class="container-sm justify-content-center py-5 w-100">
+
+                  <!-- inclulle la vista template-->
+                  {% include 'view_species/especie_card.html' %}
+                <!-- -->
+                
+                </div>
+                
+                
+              <h3 class="card-title h5 text-black-50 fw-bold px-5">Relaciones</h3>
+        <div class="card my-2 ">
+          
+
+          {% for lis in datas_extra %}
+          
+          {% if lis.lista_pk %}
+          <div class="card-body bg-dark  ">
+            <h3 class="card-title h5 text-white-50 fw-bold">Grupos</h3>
+            <ul class="list-group">
+              {% for lista in lis.lista_pk %}
+              
+              <a href="{% url 'select_grup' lista.idGrup %}" class="  m-1" style="text-decoration: none;">
+                <li class="text-white" style="text-decoration: none; list-style: none;">{{ lista.grupo }}</li>
+              </a>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+          {% if lis.menu_button %}
+          <div class="card-body bg-secondary ">
+            <h3 class="card-title h5 text-white-50 fw-bold">Animals</h3>
+            <ul class="list-group">
+              {% for lista in lis.menu_button %}
+              <a href="{% url 'select_Animals' lista.id_MenuButton %}" class="  m-1" style="text-decoration: none;">
+                <li class="text-white" style="text-decoration: none; list-style: none;">{{ lista.titulo }}</li>
+              </a>
+              {% endfor %}
+        
+            </ul>
+          </div>
+          {% endif %}
+          {% endfor %}
+        
+        
+        </div>
+
+                
+                
+           
+        </div>
+        <div class="col-xl-4 cols-sm-8 ">
+            
+                    <div class="card">
+                        <div class="cad-body">
+                            <h4 class="text-center bg-dark p-1 text-white">
+                                Especies Registrados
+                            </h4>
+                            <ul class="list-group">
+                                <a href="{% url 'home_animals_grupo'%}" class="nav-link text-center">All</a>
+                                {% for grupos in grupos %}
+                                <a href="{% url 'select_species' grupos.idAnimalList %}" class="btn-outline-primary" style="text-decoration: none;"><li 
+                                
+                                     class="list-group-item   {% if grupo_pk.idAnimalList == grupos.idAnimalList %}
+                                     active
+                                     {% else %}
+                                     disabled
+                                     {% endif %}">{{ grupos.AnimalList }}</li></a>
+                                {% endfor %}
+                                <div class="pagination justify-content-sm-center m-1">
+                                  <nav aria-label="...">
+                                <ul class="pagination">
+                                  {% if grupos.has_previous %}
+                                          <li class="page-item">
+                                            <a class="page-link" href="?page=1">first</a>
+                                          </li>
+                                          <li class="page-item">
+                                            <a class="page-link" href="?page={{ grupos.previous_page_number }}">previous</a>
+                                          </li>
+                                          
+                                      {% endif %}
+                                      <li class="page-item">
+                                        <p class="page-link">
+                                            Page {{ grupos.number }} of {{ grupos.paginator.num_pages }}.
+                                         </p>
+                                        </li>
+                                        
+                                    </span>
+                              
+                                  {% if grupos.has_next %}
+                                          <li class="page-item">
+                                            <a class="page-link" href="?page={{ grupos.next_page_number }}">next</a>
+                                          </li>
+                                          <li class="page-item">
+                                            <a class="page-link" href="?page={{ grupos.paginator.num_pages }}">last</a>
+                                          </li>
+                                    {% endif %}
+                                  
+                                </ul>
+                              </nav>
+                              
+                              </div>
+
+                            </ul>
+                        </div>
+                    </div>
+                    
+              
+        </div> 
+    </div>
+    <!-- Button trigger modal -->
+<!-- Button trigger modal -->
+
+  <!-- Modal update-->
+  <div class="modal fade" id="Grupos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Modificar</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="modal-body">
+              
+                {% include 'form/formespecie.html' %}
+              </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  <!-- Modal update-->
+  <div class="modal fade" id="add_grup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Grupo</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="modal-body">
+                {% include 'form/form.html' %}
+              </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div></div>
+{% endblock %}

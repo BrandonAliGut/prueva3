@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    
+<div class="container">
+    
+    <div class="row ">
+        <div class="col-md-8">
+            <div class="container align-items-sm-stretch my-5">
+                <div class="row mb-2  ">
+                    <!--Lista genenerica-->
+                    {% block list_view %}
+                    {% endblock  %}
+                    <!--Fin de la lista -->
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="position-sticky" style="top:3rem;"> 
+                
+                        <ul class="list-group  my-5 w-100">
+                            <div class="row  py-3 ">
+                                
+                                
+                                    
+                                <div class="col-lg-12  ">
+                                    <div class="p-1  border-3 rounded-3  {% if request.path == '/Home_page' %}
+                                    bg-success shadow-lg 
+
+                                    {% else %}
+                                    bg-light
+                                    shadow-sm
+                                    {% endif %}  " >
+                                        <h2 class=" h5 p-1 text-black-50 fw-bold">Clasificacion</h2>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <a href="{% url 'home_grupo' %}" class="btn btn-outline-light w-100 text-black-50 "> View List </a>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <a href="{% url 'add_grup' %}" class="btn btn-outline-info w-100 text-black "> Add </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12  ">
+                                    <div class=" p-1 my-1  rounded-3 border-0 {% if request.path == '/Home_page_animals' %}
+                                    bg-success shadow-lg
+                                    {% else %}
+                                    bg-light
+                                    shadow-sm
+                                    {% endif %} ">
+                                        <h2 class=" h5 p-1 text-black-50 fw-bold">Grupos de especies</h2>
+                                        
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <a href="{% url 'home_animals_grupo' %}" class="btn btn-outline-light w-100 text-black-50 "> View List </a>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <a href="{% url 'add_especies' %}" class="btn btn-outline-info w-100 text-black "> Add </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12  ">
+                                    <div class="p-1 my-1   rounded-3 border-0  {% if request.path == '/Home_page_animal_menu' %}
+                                    bg-success shadow-lg
+                                    {% else %}
+                                    bg-light
+                                    shadow-sm
+                                    {% endif %} ">
+                                        <h2 class=" h5 p-1 text-black-50 fw-bold">Animales</h2>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <a href="{% url 'home_animals' %}" class="btn btn-outline-light w-100 text-black-50 "> View List </a>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <a href="{% url 'add_Animals' %}" class="btn btn-outline-info w-100 text-black "> Add </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12  ">
+                                    <div class="p-1 my-1   rounded-3 border-0  
+                                    {% if request.path == '/admin_Informacion' %}
+                                    bg-success shadow-lg
+                                    {% elif request.path ==  '/add_table' %}
+                                    bg-success shadow-lg
+                                    
+                                    {% else %}
+                                    bg-light
+                                    shadow-sm
+                                    {% endif %} ">
+                                        <h2 class=" h5 p-1 text-black-50 fw-bold">Informacion</h2>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <a href="{% url 'select_informacion' %}" class="btn btn-outline-light w-100 text-black-50 "> View List </a>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <a href="{% url 'add_grup' %}" class="btn btn-outline-info w-100 text-black "> Add </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                        </ul>
+                    
+            </div>
+        </div>
+    </div>
+    
+        
+</div>
+
+{% endblock%}
+    

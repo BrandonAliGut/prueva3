@@ -1,0 +1,146 @@
+{% extends 'page_all/list_animals_Informacion.html' %}
+{% block tab_nav %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style_app.css'%}">
+<style>
+  .pie {
+    --w: 190px;
+
+    width: var(--w);
+    aspect-ratio: 1;
+    position: relative;
+    display: inline-grid;
+    place-content: center;
+    margin: 5px;
+    font-size: 25px;
+    font-weight: bold;
+    font-family: sans-serif;
+  }
+
+  .pie:before {
+
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    inset: 0;
+    background: conic-gradient(var(--c) calc(var(--p)*1%), #0000 0);
+    -webkit-mask: radial-gradient(farthest-side, #0000 calc(99% - var(--b)), #000 calc(100% - var(--b)));
+    mask: radial-gradient(farthest-side, #0000 calc(99% - var(--b)), #000 calc(100% - var(--b)));
+  }
+</style>
+
+
+<div class="pt-1"></div>
+<div class="row  rounded-1 shadow-lg py-2  ">
+  <div class="col-6">
+    {%for porcentaje in porcentaje %}
+    <div class="content  d-flex justify-content-center">
+      <div class="pie py-5 " style="--p:{{porcentaje.porcentual}};--b:10px;--c:{{porcentaje.color_status}}">
+        <h2 class="  h4 bold  {{porcentaje.text_color}} ">table: {{porcentaje.tablas}}</h2>
+
+        <p class="h6 {{porcentaje.text_color}} w-25">
+          {{porcentaje.datos_inf}}
+        </p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="col-6">
+    <form method="GET">
+      <div class="input-group py-5 d-flex align-content-center">
+      <input class="form-control me-2 " type="search" placeholder="Search" aria-label="Search" placeholder="Search" aria-label="Search"  name="buscar_table" value="{{request.GET.buscar_table}}">
+      </div>
+    </form>
+  </div>
+</div>
+<div class="py-3 shadow-sm "></div>
+<div class="row  rounded-1 shadow-lg py-1" style="padding-top: 20px;">
+  <h3 class="h5 px-3">Add Table</h3>
+  <form method="POST" id="for_add_table" class="row g-3 justify-content-center" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="row p-2">
+
+
+      <div class="col-md-5">
+      <input type="text" class="form-control" id="cc-name" placeholder="New Table" value="" name="name" required="">
+      </div>
+
+      <div class="col-md-5">
+        <select class="form-select " id="validationServer04" required="" name="id_Info">
+          <option 
+          
+          {% if pk == 0 %}
+          selected="" disabled="" value=""
+          {% endif %}
+             >Select Place</option>
+         {% for e in s_infor %}
+          <option {% if pk != 0   %}
+          
+          {% if pk == e.id %}
+            selected="" 
+          {% endif %}
+            
+          
+          {% endif %} value="{{e.id}}">{{e.nombre}}</option>
+
+        {%endfor%}
+        {{pk}}
+        </select>
+        slee
+        
+          
+          
+          
+       
+
+      </div>
+      <div class="col-md-2 d-flex justify-content-center py-1">
+        <button type="submit" class="btn btn-outline-success  text-center px-5 " id="btn_created">Crear</button>
+      </div>
+      
+
+    </div>
+
+
+
+
+  </form>
+  <div class="row">
+    <!--add thi group's table-->
+  </div>
+
+</div>
+<div class=" pt-5"></div>
+<div class="content ">
+  <div class="list-group">
+
+    {% for table in tablas %}
+    {% for t in table.tablas %}
+    <div class="list-group-item  {% cycle 'text-white bg-secondary ' 'text-black-50 bg-light'  %}">
+      <div class="row">
+        <div class="col-10">
+          {{t.name}}
+        </div>
+        <div class="col-2">
+
+          <div class="row">
+            <a href="{% url 'table_del' t.id %}" class="col-6  badge  w-auto"
+              style="text-decoration: none;"><img src="{% static 'icon/cancel_96921.png' %}" class="card-img-top iconimg" style="width: 20px;"></a>
+            <div type="button" class="col-6 badge " >
+              <img    src="{% static 'icon/table_add_filled_icon_199676.png' %}" class="card-img-top iconimg" style="width: 20px;
+              ">
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+
+    </div>
+    {% endfor%}
+    {% endfor%}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static%}
+
+{% block content %}
+
+<div class="content w-100 ">
+    <div class="container-fluid w-100">
+        <div class="content d-flex justify-content-end ">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvascontrol_nav" aria-controls="offcanvasDarkNavbar">
+                <img src="{% static 'icon/left_circle_icon_238010.png' %}" class="card-img-top" style="width: 40px;">
+            </button>
+        </div>
+        <nav class="navbar navbar-dark  d-flex">
+
+            <div class="offcanvas offcanvas-end bg-transparent " style="width:250px; border:none;" tabindex="-1"
+                id="offcanvascontrol_nav" aria-labelledby="offcanvasDarkNavbarLabel">
+                <div class="offcanvas-header">
+
+                    <img type="button" class=" btn-close-white" data-bs-dismiss="offcanvas"
+                        src="{% static 'icon/1904671-arrow-arrow-right-change-direction-next-page-right_122521.png' %}"
+                        class="card-img-top"
+                        style="width: 40px; height: 40px; display: flex; position: absolute; margin-top: 400px; margin-left: 100px;">
+
+                </div>
+                <div class="offcanvas-body py-5 d-flex justify-content-end border-0 align-content-center">
+                    <div class=" my-5 py-5 d-flex align-content-center justify-content-center"
+                        style="height: calc(100vh-5vh);">
+                        <div class="position-sticky py-5 d-flex justify-content-center" style="top:2rem;">
+
+                            <div class="d-flex flex-column flex-shrink-0  bg-light rounded-5 py-5  rounded-2 shadow-lg "
+                                style="width: 4.5rem;">
+                                <ul class="nav nav-pills  nav-flush flex-column mb-auto text-center ulrs">
+                                    <li class="nav-item">
+                                        <a href="{% url 'home_grupo' %}" class="
+                                    nav-link  py-3 border-bottom
+                                    {% if request.path == '/Home_page' %}
+                                    active shadow-lg 
+            
+                                                {% else %}
+                                                bg-light
+                                                
+                                                {% endif %}
+                                    
+                                    " aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right"
+                                            data-bs-original-title="Home">
+
+                                            <img src="{% static 'icon/hexagon_multiple_icon_135513.png' %}"
+                                                class="card-img-top" style="width: 30px;">
+
+                                        </a>
+                                        <span class="span_nav_view">Clasificacion</span>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'home_animals_grupo' %}" class="
+                                    nav-link py-3 border-bottom
+                                    {% if request.path == '/Home_page_animals' %}
+                                                active shadow-lg
+                                                {% else %}
+                                                bg-light
+                                                
+                                                {% endif %}
+                                    " title="" data-bs-toggle="tooltip" data-bs-placement="right"
+                                            data-bs-original-title="Dashboard">
+
+                                            <img src="{% static 'icon/OIP.jpg' %}" class="card-img-top"
+                                                style="width: 30px;">
+
+                                        </a>
+                                        <span class="span_nav_view">Grupos De Especies</span>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'home_animals' %}" class="
+                                    nav-link py-3 border-bottom
+                                    {% if request.path == '/Home_page_animal_menu' %}
+                                                bg-success shadow-lg
+                                                {% else %}
+                                                bg-light
+                                                
+                                                {% endif %}
+                                    " title="" data-bs-toggle="tooltip" data-bs-placement="right"
+                                            data-bs-original-title="Orders">
+
+                                            <img src="{% static 'icon/chicken_animal_4448.png' %}" class="card-img-top"
+                                                style="width: 30px;">
+
+                                        </a>
+                                        <span class="span_nav_view">Animales</span>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'select_informacion' %}" class="
+                                    nav-link py-3 
+                                    {% if request.path == '/admin_Informacion' %}
+                                                bg-success shadow-lg
+                                                {% elif request.path ==  '/add_table' %}
+                                                bg-success shadow-lg
+                                                
+                                                {% else %}
+                                                bg-light
+                                                
+                                                {% endif %}
+                                    " title="" data-bs-toggle="tooltip" data-bs-placement="right"
+                                            data-bs-original-title="Orders">
+
+                                            <img src="{% static 'icon/edit_icon-icons.com_66118.png' %}"
+                                                class="card-img-top" style="width: 30px;">
+
+                                        </a>
+                                        <span class="span_nav_view">Informacion </span>
+                                    </li>
+
+                                </ul>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+
+    <div class="container-sm ">
+
+        <!--Lista genenerica-->
+        {% block list_view %}
+
+        {% endblock %}
+        <!--Fin de la lista -->
+
+
+    </div>
+
+
+
+
+
+</div>
+
+{% endblock%}
